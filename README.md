@@ -204,4 +204,4 @@ Nginx was successfully deployed and managed by ArgoCD.
 
 GitHub Repository:
 
-https://github.com/ZoryanaYaremko/goit-argo# goit-argo
+https://github.com/ZoryanaYaremko/goit-argo
