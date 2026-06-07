@@ -1,33 +1,20 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: nginx
-  namespace: infra-tools
-
+  name: demo-nginx
+  namespace: application
 spec:
-  project: default
-
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: nginx
-    targetRevision: 21.1.23
-
-    helm:
-      values: |
-        service:
-          type: ClusterIP
-
-        replicaCount: 1
-
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: application
-
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-
-    syncOptions:
-      - CreateNamespace=true
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-nginx
+  template:
+    metadata:
+      labels:
+        app: demo-nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80
